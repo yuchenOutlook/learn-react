@@ -143,6 +143,7 @@ function getBook(id) {
   return data.find((d) => d.id === id);
 }
 
+/*
 const books = getBooks();
 books;
 
@@ -223,3 +224,46 @@ console.log(wrongReviewCount);
 const rightReviewCount =
   updatedBook.reviews.librarything.reviewsCount ?? "No Reviews Found";
 console.log(rightReviewCount);
+
+// optional chaining operator, the "?" operator will only return the value if the property exists
+function getReviews(book) {
+  const goodReads = book.reviews.goodreads.ratingsCount;
+
+  // here badReads is optional, if it does not exist, it will return undefined, then "??" operator
+  // will kick in and return 0
+  const badReads = book.reviews.badReads?.ratingsCount ?? 0;
+  return goodReads + badReads;
+}
+
+console.log(getReviews(book));
+*/
+
+const books = getBooks();
+const x = [1, 2, 3, 4, 5].map((n) => n * 2);
+console.log(x);
+
+const titles = books.map((book) => book.title);
+console.log(titles);
+
+function getReviewsCount(book) {
+  const goodReads = book.reviews.goodreads.ratingsCount;
+
+  // here badReads is optional, if it does not exist, it will return undefined, then "??" operator
+  // will kick in and return 0
+  const badReads = book.reviews.badReads?.ratingsCount ?? 0;
+  return goodReads + badReads;
+}
+
+const essentials = books.map((book) => ({
+  title: book.title,
+  author: book.author,
+  reviewsCount: getReviewsCount(book),
+}));
+
+console.log(essentials);
+
+const longBooks = books
+  .filter((book) => book.pages > 500)
+  .filter((book) => book.hasMovieAdaptation)
+  .filter((book) => book.genres.includes("fantasy"));
+console.log(longBooks);
