@@ -238,6 +238,7 @@ function getReviews(book) {
 console.log(getReviews(book));
 */
 
+/*
 const books = getBooks();
 const x = [1, 2, 3, 4, 5].map((n) => n * 2);
 console.log(x);
@@ -321,3 +322,26 @@ const booksAfterUpdate = booksAfterDelete.map(
   // if id is 1, we are returning a new object with the same properties as the book object, but only with the pages updated
 );
 booksAfterUpdate;
+*/
+
+// It will throw here because fetch is a promise, and it is not resolved/fulfilled yet.
+// console.log(fetch("https://jsonplaceholder.typicode.com/todos"));
+fetch("https://jsonplaceholder.typicode.com/todos")
+  .then((response) => response.json())
+  .then((data) => console.log(data));
+console.log("javascript loads fast.");
+
+// the "then()" triggers when the promise is resolved, and the data is available.
+
+// async await
+async function fetchTodos() {
+  const todo_response = await fetch(
+    "https://jsonplaceholder.typicode.com/todos"
+  );
+  const data = await todo_response.json();
+  console.log(data);
+}
+
+fetchTodos();
+
+console.log("The line after fetchTodos() is executed.");
