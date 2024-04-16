@@ -143,6 +143,7 @@ function getBook(id) {
   return data.find((d) => d.id === id);
 }
 
+/*
 const books = getBooks();
 books;
 
@@ -223,3 +224,124 @@ console.log(wrongReviewCount);
 const rightReviewCount =
   updatedBook.reviews.librarything.reviewsCount ?? "No Reviews Found";
 console.log(rightReviewCount);
+
+// optional chaining operator, the "?" operator will only return the value if the property exists
+function getReviews(book) {
+  const goodReads = book.reviews.goodreads.ratingsCount;
+
+  // here badReads is optional, if it does not exist, it will return undefined, then "??" operator
+  // will kick in and return 0
+  const badReads = book.reviews.badReads?.ratingsCount ?? 0;
+  return goodReads + badReads;
+}
+
+console.log(getReviews(book));
+*/
+
+/*
+const books = getBooks();
+const x = [1, 2, 3, 4, 5].map((n) => n * 2);
+console.log(x);
+
+const titles = books.map((book) => book.title);
+console.log(titles);
+
+function getReviewsCount(book) {
+  const goodReads = book.reviews.goodreads.ratingsCount;
+
+  // here badReads is optional, if it does not exist, it will return undefined, then "??" operator
+  // will kick in and return 0
+  const badReads = book.reviews.badReads?.ratingsCount ?? 0;
+  return goodReads + badReads;
+}
+
+const essentials = books.map((book) => ({
+  title: book.title,
+  author: book.author,
+  reviewsCount: getReviewsCount(book),
+}));
+
+console.log(essentials);
+
+const longBooks = books
+  .filter((book) => book.pages > 500)
+  .filter((book) => book.hasMovieAdaptation)
+  .filter((book) => book.genres.includes("fantasy"));
+console.log(longBooks);
+
+// reduce method
+const pagesAllBooks = books.reduce((accumulator, book) => {
+  return accumulator + book.pages; // here you need to return.
+}, 0);
+
+const pagesAllBooks_another_way = books.reduce(
+  (acc, books) => acc + books.pages,
+  0
+);
+console.log(pagesAllBooks);
+console.log(pagesAllBooks_another_way);
+
+// The array sort method
+const example_array = [3, 7, 1, 9, 2, 5, 6, 4, 8];
+const sorted = example_array.sort((a, b) => a - b); // ascending order, a and b are the current and next value
+// if a - b is negateive, it means a is smaller than b, so a will come before b, so array will be sorted in ascending order.
+
+// note that the orginal array is also sorted.
+console.log(sorted);
+console.log(example_array);
+
+// So a better idea to not mutate the original array is to use the spread operator or the slice method
+const sorted_array = [...example_array].sort((a, b) => b - a); // descending order
+const sorted_array_another_way = example_array.slice().sort((a, b) => b - a); // descending order
+console.log(sorted_array);
+console.log(sorted_array_another_way);
+console.log(example_array);
+
+const sortedByPages = books.slice().sort((a, b) => a.pages - b.pages);
+
+// Working with immutable arrays
+// 1. add a book object to books array
+const newBook = {
+  id: 6,
+  title: "Harry Potter and the Chamber of Secrets",
+  author: "J. K. Rowling",
+};
+
+const booksAfterAdd = [...books, newBook];
+console.log(booksAfterAdd);
+
+// 2. remove a book object from books array
+const booksAfterDelete = booksAfterAdd.filter((book) => book.id !== 3);
+booksAfterDelete;
+
+// 3. update a book in the books array
+const booksAfterUpdate = booksAfterDelete.map(
+  (book) =>
+    // here we are updating the book with id 1, if the id is not 1, we are returning the book as it is
+    book.id === 1 ? { ...book, pages: 2003 } : book
+  // if id is 1, we are returning a new object with the same properties as the book object, but only with the pages updated
+);
+booksAfterUpdate;
+*/
+
+// It will throw here because fetch is a promise, and it is not resolved/fulfilled yet.
+// console.log(fetch("https://jsonplaceholder.typicode.com/todos"));
+fetch("https://jsonplaceholder.typicode.com/todos")
+  .then((response) => response.json())
+  .then((data) => console.log(data));
+console.log("javascript loads fast.");
+
+// the "then()" triggers when the promise is resolved, and the data is available.
+
+// async await
+async function fetchTodos() {
+  const todo_response = await fetch(
+    "https://jsonplaceholder.typicode.com/todos"
+  );
+  const data = await todo_response.json();
+  console.log(data);
+}
+
+fetchTodos();
+
+console.log("The line after fetchTodos() is executed.");
