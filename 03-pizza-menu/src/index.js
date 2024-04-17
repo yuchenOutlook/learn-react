@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import "./index.css";
 
 const pizzaData = [
   {
@@ -48,7 +49,7 @@ const pizzaData = [
 
 function App() {
   return (
-    <div>
+    <div className="container">
       <Header />
       <Menu />
       <Footer />
@@ -57,35 +58,66 @@ function App() {
 }
 
 function Header() {
-  return <h1>Fast React Pizza Co.</h1>;
+  // you can define the style outside the return statement
+  const style = { color: "red", fontSize: "52px", textTransform: "uppercase" };
+
+  return (
+    // here you have inline css styles
+    // <h1 style={{ color: "red", fontSize: "52px", textTransform: "uppercase" }}>
+    //   Fast React Pizza Co.
+    // </h1>
+
+    <header className="header">
+      <h1>Fast React Pizza Co.</h1>
+    </header>
+  );
 }
 
 function Menu() {
   return (
-    <div>
+    <main className="menu">
       <h2>Our Pizza.</h2>
-      <Pizza />
-      <Pizza />
-      <Pizza />
-      <Pizza />
+      <Pizza
+        name="Pizza Spinaci"
+        ingredient="Tomato, mozarella, spinach, and ricotta cheese"
+        photoName="pizzas/spinaci.jpg"
+        price={10}
+      />
+      <Pizza
+        name="Pizza Funghi"
+        ingredient="Tomato, mushrooms, and onion"
+        price={12}
+        photoName="pizzas/funghi.jpg"
+      />
+    </main>
+  );
+}
+
+function Pizza(props) {
+  console.log(props);
+  // The component function needs to be capitalized and return JSX
+  return (
+    <div>
+      <img src={props.photoName} alt={props.name} />
+      <h3>{props.name}</h3>
+      <p>{props.ingredient}</p>
+      <p>$ {props.price + 3}</p>
     </div>
   );
 }
 
 function Footer() {
-  return (
-    <footer>{new Date().toLocaleDateString()}. We're currently open!!</footer>
-  );
-}
+  const hour = new Date().getHours();
+  console.log(hour);
+  const openHour = 9;
+  const closeHour = 22;
+  const isStoreOpen = hour >= openHour && hour < closeHour;
 
-function Pizza() {
-  // The component function needs to be capitalized and return JSX
+  // isStoreOpen ? alert("We're open!") : alert("We're closed!");
   return (
-    <div>
-      <img src="pizzas/spinaci.jpg" alt="Pizza Spinaci" />
-      <h2>Pizza Spinaci</h2>
-      <p>Tomato, mozarella, spinach, and ricotta cheese</p>
-    </div>
+    <footer className="header footer">
+      {new Date().toLocaleDateString()}. We're currently open!!
+    </footer>
   );
 }
 
