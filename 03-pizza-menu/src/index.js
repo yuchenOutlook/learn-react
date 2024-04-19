@@ -74,6 +74,10 @@ function Header() {
 }
 
 function Menu() {
+  // const pizzas = [];
+  const pizzas = pizzaData;
+  const numPizzas = pizzas.length;
+
   return (
     <main className="menu">
       <h2>Our Pizza Menu</h2>
@@ -81,11 +85,14 @@ function Menu() {
         Authentic italian cuisine. Great choices of all times. All from our
         stone oven. All organic, all delicous.
       </p>
-      <ul className="pizzas">
-        {pizzaData.map((pizza) => (
-          <Pizza pizzaObj={pizza} key={pizza.name} />
-        ))}
-      </ul>
+      {numPizzas > 0 && (
+        <ul className="pizzas">
+          {pizzaData.map((pizza) => (
+            <Pizza pizzaObj={pizza} key={pizza.name} />
+          ))}
+        </ul>
+      )}
+
       {/* <Pizza
         name="Pizza Spinaci"
         ingredient="Tomato, mozarella, spinach, and ricotta cheese"
@@ -127,7 +134,14 @@ function Footer() {
   // isStoreOpen ? alert("We're open!") : alert("We're closed!");
   return (
     <footer className="header footer">
-      {new Date().toLocaleDateString()}. We're currently open!!
+      {isStoreOpen && (
+        <div className="order">
+          <p>
+            We're open until {closeHour}:00 pm. Come visit us or order online.
+          </p>
+          <button className="btn">Order</button>
+        </div>
+      )}
     </footer>
   );
 }
