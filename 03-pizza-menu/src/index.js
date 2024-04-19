@@ -74,8 +74,8 @@ function Header() {
 }
 
 function Menu() {
-  const pizzas = [];
-  // const pizzas = pizzaData;
+  // const pizzas = [];
+  const pizzas = pizzaData;
   const numPizzas = pizzas.length;
 
   return (
@@ -113,6 +113,21 @@ function Menu() {
 
 function Pizza(props) {
   console.log(props);
+
+  if (props.pizzaObj.soldOut) {
+    return (
+      <li className="pizza sold-out">
+        <img src={props.pizzaObj.photoName} alt={props.pizzaObj.name} />
+        <div>
+          <h3>{props.pizzaObj.name}</h3>
+          <p>{props.pizzaObj.ingredients}</p>
+          <p>${props.pizzaObj.price + 3}</p>
+          <p>Sold Out</p>
+        </div>
+      </li>
+    );
+  }
+
   // The component function needs to be capitalized and return JSX
   return (
     <li className="pizza">
@@ -133,6 +148,7 @@ function Footer() {
   const closeHour = 22;
   const isStoreOpen = hour >= openHour && hour < closeHour;
 
+  // if (isStoreOpen) return <p>CLosed.</p>;
   // isStoreOpen ? alert("We're open!") : alert("We're closed!");
   return (
     <footer className="header footer">
