@@ -25,10 +25,10 @@ function SkillList() {
       <Skill name="JavaScript" icon="/icons/example-icon.png"></Skill>
       <Skill name="Web Dev" icon="/icons/example-icon.png"></Skill>
       <Skill name="SRE" icon="/icons/example-icon.png"></Skill> */}
-      <Skill name="HTML+CSS" emoji="💪🏻" color="purple"></Skill>
-      <Skill name="JavaScript" emoji="💪🏻" color="blue"></Skill>
-      <Skill name="Web Dev" emoji="💪🏻" color="red"></Skill>
-      <Skill name="SRE" emoji="😉" color="yellow"></Skill>
+      <Skill name="HTML+CSS" emoji="💪🏻" color="#51e2f5"></Skill>
+      <Skill name="JavaScript" emoji="💪🏻" color="#9df9ef"></Skill>
+      <Skill name="Web Dev" emoji="💪🏻" color="#fff685"></Skill>
+      <Skill name="SRE" emoji="😉" color="#a0d2eb"></Skill>
     </div>
   );
 }
