@@ -74,10 +74,28 @@ function Header() {
 }
 
 function Menu() {
+  // const pizzas = [];
+  const pizzas = pizzaData;
+  const numPizzas = pizzas.length;
+
   return (
     <main className="menu">
-      <h2>Our Pizza.</h2>
-      <Pizza
+      <h2>Our Pizza Menu</h2>
+      <p>
+        Authentic italian cuisine. Great choices of all times. All from our
+        stone oven. All organic, all delicous.
+      </p>
+      {numPizzas > 0 ? (
+        <ul className="pizzas">
+          {pizzaData.map((pizza) => (
+            <Pizza pizzaObj={pizza} key={pizza.name} />
+          ))}
+        </ul>
+      ) : (
+        <p>We're still working on our menu. Please come back later.</p>
+      )}
+
+      {/* <Pizza
         name="Pizza Spinaci"
         ingredient="Tomato, mozarella, spinach, and ricotta cheese"
         photoName="pizzas/spinaci.jpg"
@@ -88,21 +106,38 @@ function Menu() {
         ingredient="Tomato, mushrooms, and onion"
         price={12}
         photoName="pizzas/funghi.jpg"
-      />
+      /> */}
     </main>
   );
 }
 
 function Pizza(props) {
   console.log(props);
+
+  if (props.pizzaObj.soldOut) {
+    return (
+      <li className="pizza sold-out">
+        <img src={props.pizzaObj.photoName} alt={props.pizzaObj.name} />
+        <div>
+          <h3>{props.pizzaObj.name}</h3>
+          <p>{props.pizzaObj.ingredients}</p>
+          <p>${props.pizzaObj.price + 3}</p>
+          <p>Sold Out</p>
+        </div>
+      </li>
+    );
+  }
+
   // The component function needs to be capitalized and return JSX
   return (
-    <div>
-      <img src={props.photoName} alt={props.name} />
-      <h3>{props.name}</h3>
-      <p>{props.ingredient}</p>
-      <p>$ {props.price + 3}</p>
-    </div>
+    <li className="pizza">
+      <img src={props.pizzaObj.photoName} alt={props.pizzaObj.name} />
+      <div>
+        <h3>{props.pizzaObj.name}</h3>
+        <p>{props.pizzaObj.ingredients}</p>
+        <p>${props.pizzaObj.price + 3}</p>
+      </div>
+    </li>
   );
 }
 
@@ -113,10 +148,20 @@ function Footer() {
   const closeHour = 22;
   const isStoreOpen = hour >= openHour && hour < closeHour;
 
+  // if (isStoreOpen) return <p>CLosed.</p>;
   // isStoreOpen ? alert("We're open!") : alert("We're closed!");
   return (
     <footer className="header footer">
-      {new Date().toLocaleDateString()}. We're currently open!!
+      {isStoreOpen ? (
+        <div className="order">
+          <p>
+            We're open until {closeHour}:00 pm. Come visit us or order online.
+          </p>
+          <button className="btn">Order</button>
+        </div>
+      ) : (
+        <p>Sorry, we're closed. We open at {openHour}:00 am.</p>
+      )}
     </footer>
   );
 }
