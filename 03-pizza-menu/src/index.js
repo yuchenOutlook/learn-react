@@ -76,8 +76,17 @@ function Header() {
 function Menu() {
   return (
     <main className="menu">
-      <h2>Our Pizza.</h2>
-      <Pizza
+      <h2>Our Pizza Menu</h2>
+      <p>
+        Authentic italian cuisine. Great choices of all times. All from our
+        stone oven. All organic, all delicous.
+      </p>
+      <ul className="pizzas">
+        {pizzaData.map((pizza) => (
+          <Pizza pizzaObj={pizza} key={pizza.name} />
+        ))}
+      </ul>
+      {/* <Pizza
         name="Pizza Spinaci"
         ingredient="Tomato, mozarella, spinach, and ricotta cheese"
         photoName="pizzas/spinaci.jpg"
@@ -88,7 +97,7 @@ function Menu() {
         ingredient="Tomato, mushrooms, and onion"
         price={12}
         photoName="pizzas/funghi.jpg"
-      />
+      /> */}
     </main>
   );
 }
@@ -97,12 +106,14 @@ function Pizza(props) {
   console.log(props);
   // The component function needs to be capitalized and return JSX
   return (
-    <div>
-      <img src={props.photoName} alt={props.name} />
-      <h3>{props.name}</h3>
-      <p>{props.ingredient}</p>
-      <p>$ {props.price + 3}</p>
-    </div>
+    <li className="pizza">
+      <img src={props.pizzaObj.photoName} alt={props.pizzaObj.name} />
+      <div>
+        <h3>{props.pizzaObj.name}</h3>
+        <p>{props.pizzaObj.ingredients}</p>
+        <p>${props.pizzaObj.price + 3}</p>
+      </div>
+    </li>
   );
 }
 
