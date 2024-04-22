@@ -81,16 +81,19 @@ function Menu() {
   return (
     <main className="menu">
       <h2>Our Pizza Menu</h2>
-      <p>
-        Authentic italian cuisine. Great choices of all times. All from our
-        stone oven. All organic, all delicous.
-      </p>
+
       {numPizzas > 0 ? (
-        <ul className="pizzas">
-          {pizzaData.map((pizza) => (
-            <Pizza pizzaObj={pizza} key={pizza.name} />
-          ))}
-        </ul>
+        <>
+          <p>
+            Authentic italian cuisine. Great choices of all times. All from our
+            stone oven. All organic, all delicous.
+          </p>
+          <ul className="pizzas">
+            {pizzaData.map((pizza) => (
+              <Pizza pizzaObj={pizza} key={pizza.name} />
+            ))}
+          </ul>
+        </>
       ) : (
         <p>We're still working on our menu. Please come back later.</p>
       )}
@@ -116,7 +119,7 @@ function Pizza({ pizzaObj }) {
 
   if ({ pizzaObj }.pizzaObj.soldOut) {
     return (
-      <li className="pizza sold-out">
+      <li className={`pizza ${pizzaObj.soldOut ? "sold-out" : ""}`}>
         <img
           src={{ pizzaObj }.pizzaObj.photoName}
           alt={{ pizzaObj }.pizzaObj.name}
@@ -124,8 +127,9 @@ function Pizza({ pizzaObj }) {
         <div>
           <h3>{{ pizzaObj }.pizzaObj.name}</h3>
           <p>{{ pizzaObj }.pizzaObj.ingredients}</p>
-          <p>${{ pizzaObj }.pizzaObj.price + 3}</p>
-          <p>Sold Out</p>
+          <span>{pizzaObj.soldOut ? "Sold Out" : pizzaObj.price}</span>
+          {/* <p>${{ pizzaObj }.pizzaObj.price + 3}</p> */}
+          {/* <p>Sold Out</p> */}
         </div>
       </li>
     );
