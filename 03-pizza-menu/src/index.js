@@ -111,17 +111,20 @@ function Menu() {
   );
 }
 
-function Pizza(props) {
-  console.log(props);
+function Pizza({ pizzaObj }) {
+  console.log({ pizzaObj });
 
-  if (props.pizzaObj.soldOut) {
+  if ({ pizzaObj }.pizzaObj.soldOut) {
     return (
       <li className="pizza sold-out">
-        <img src={props.pizzaObj.photoName} alt={props.pizzaObj.name} />
+        <img
+          src={{ pizzaObj }.pizzaObj.photoName}
+          alt={{ pizzaObj }.pizzaObj.name}
+        />
         <div>
-          <h3>{props.pizzaObj.name}</h3>
-          <p>{props.pizzaObj.ingredients}</p>
-          <p>${props.pizzaObj.price + 3}</p>
+          <h3>{{ pizzaObj }.pizzaObj.name}</h3>
+          <p>{{ pizzaObj }.pizzaObj.ingredients}</p>
+          <p>${{ pizzaObj }.pizzaObj.price + 3}</p>
           <p>Sold Out</p>
         </div>
       </li>
@@ -131,11 +134,11 @@ function Pizza(props) {
   // The component function needs to be capitalized and return JSX
   return (
     <li className="pizza">
-      <img src={props.pizzaObj.photoName} alt={props.pizzaObj.name} />
+      <img src={pizzaObj.photoName} alt={pizzaObj.name} />
       <div>
-        <h3>{props.pizzaObj.name}</h3>
-        <p>{props.pizzaObj.ingredients}</p>
-        <p>${props.pizzaObj.price + 3}</p>
+        <h3>{pizzaObj.name}</h3>
+        <p>{pizzaObj.ingredients}</p>
+        <p>${pizzaObj.price + 3}</p>
       </div>
     </li>
   );
@@ -153,16 +156,23 @@ function Footer() {
   return (
     <footer className="header footer">
       {isStoreOpen ? (
-        <div className="order">
-          <p>
-            We're open until {closeHour}:00 pm. Come visit us or order online.
-          </p>
-          <button className="btn">Order</button>
-        </div>
+        <Order closeHour={closeHour} openHour={openHour} />
       ) : (
         <p>Sorry, we're closed. We open at {openHour}:00 am.</p>
       )}
     </footer>
+  );
+}
+
+function Order({ closeHour, openHour }) {
+  return (
+    <div className="order">
+      <p>
+        We're open from {openHour}:00 AM until {closeHour}:00 pm. Come visit us
+        or order online.
+      </p>
+      <button className="btn">Order</button>
+    </div>
   );
 }
 
