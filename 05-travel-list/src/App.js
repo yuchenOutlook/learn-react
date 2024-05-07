@@ -7,11 +7,16 @@ const initialItems = [
 ];
 
 export default function App() {
+  const [items, setItems] = useState([]);
+
+  function handleAddItems(item) {
+    setItems((items) => [...items, item]);
+  }
   return (
     <div className="app">
       <Logo />
-      <Form />
-      <PackingList />
+      <Form onAddItems={handleAddItems} />
+      <PackingList items={items} />
       <Stats />
     </div>
   );
@@ -21,24 +26,25 @@ function Logo() {
   return <h1 className="">🏝️FAR AWAY🥂</h1>;
 }
 
-function Form() {
+function Form({ onAddItems }) {
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState(1);
 
-  function submitHandler(event) {
-    event.preventDefault();
-    if (!description.trim()) return;
+  function handleSubmit(e) {
+    e.preventDefault();
 
-    // console.log(e.target.elements.description.value);
-    // you can do some validation and print the value here etc.
+    if (!description) return;
 
+    const newItem = { description, quantity, packed: true, id: Date.now() };
+
+    onAddItems(newItem);
     // set description and quantity to the initial state
     setDescription("");
     setQuantity(1);
   }
 
   return (
-    <div className="add-form" onSubmit={submitHandler}>
+    <form className="add-form" onSubmit={handleSubmit}>
       <h3>What do you need for your 😍 trip?</h3>
       <select
         value={quantity}
@@ -57,15 +63,15 @@ function Form() {
         onChange={(e) => setDescription(e.target.value)}
       />
       <button>ADD</button>
-    </div>
+    </form>
   );
 }
 
-function PackingList() {
+function PackingList({ items }) {
   return (
     <div className="list">
       <ul>
-        {initialItems.map((item) => (
+        {items.map((item) => (
           <Item item={item}></Item>
         ))}
       </ul>
