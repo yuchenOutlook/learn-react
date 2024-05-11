@@ -35,7 +35,7 @@ export default function App() {
         &times;
       </button>
       {isOpen && (
-        <div className="steps">
+        <div class="steps">
           <div className="numbers">
             <div className={step >= 1 ? "active" : ""}>1</div>
             <div className={step >= 2 ? "active" : ""}>2</div>
@@ -45,30 +45,22 @@ export default function App() {
             Step {step} : {messages[step - 1]}
           </p>
           <div className="buttons">
-            <Button
-              bgColor="#7950f2"
-              textColor="#ffff"
-              onClick={handlePrevious}
+            <button
+              style={{ backgroundColor: "#7950f2", color: "#ffff" }}
+              onClick={handlePrevious} // THis is a callback function which will happen at a later time.
+              // The later time is when the button is clicked.
             >
-              Previous<span>👈</span>
-            </Button>
-            <Button bgColor="#7950f2" textColor="#ffff" onClick={handleNext}>
-              Next<span>🤟</span>
-            </Button>
+              Previous
+            </button>
+            <button
+              style={{ backgroundColor: "#7950f2", color: "#ffff" }}
+              onClick={handleNext}
+            >
+              Next
+            </button>
           </div>
         </div>
       )}
     </>
-  );
-}
-
-function Button({ textColor, bgColor, onClick, children }) {
-  return (
-    <button
-      style={{ backgroundColor: bgColor, color: textColor }}
-      onClick={onClick}
-    >
-      {children}
-    </button>
   );
 }
