@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const tempMovieData = [
   {
@@ -93,32 +93,9 @@ function Main({ children }) {
   return <main className="main">{children}</main>;
 }
 
-const KEY = "5844c88e";
-
 export default function App() {
   const [movies, setMovies] = useState(tempMovieData);
   const [watched, setWatched] = useState(tempWatchedData);
-  const [isLoading, setIsLoading] = useState(false);
-  const query = "interstellar";
-
-  useEffect(function () {
-    async function fetchMovies() {
-      setIsLoading(true);
-      const res = await fetch(
-        `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`
-      );
-      const data = await res.json();
-      setMovies(data.Search);
-      setIsLoading(false);
-    }
-    fetchMovies();
-  }, []);
-
-  // Don't use fetch inside a component because it will be called every time the component renders,
-  // and that will leave you into an infinite loop.
-  // fetch(`http://www.omdbapi.com/?apikey=${KEY}&s=interstellar`)
-  //   .then((res) => res.json())
-  //   .then((data) => console.log(data));
 
   return (
     <>
@@ -127,7 +104,9 @@ export default function App() {
         <NumResults movies={movies} />
       </NavBar>
       <Main>
-        <Box>{isLoading ? <Loader /> : <MovieList movies={movies} />}</Box>
+        <Box>
+          <MovieList movies={movies} />
+        </Box>
         <Box>
           <>
             <WatchedSummary watched={watched} />
@@ -137,10 +116,6 @@ export default function App() {
       </Main>
     </>
   );
-}
-
-function Loader() {
-  return <p className="loader">Loading...</p>;
 }
 
 function Box({ children }) {
